@@ -34,7 +34,7 @@ node {
     }
 
     stage('deploy to cluster') {
-            dir("${env.WORKSPACE}/deloitted_interal/kubernetes"){
+            dir("${env.WORKSPACE}/deloitted_internal/kubernetes"){
                 echo 'Get cluster credentials'
                 sh 'gcloud container clusters get-credentials amiecluster-1 --zone us-central1-c --project amie-events'
                 sh 'kubectl apply -f internal-deployment.yaml'
