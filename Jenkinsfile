@@ -11,9 +11,9 @@ node {
         sh 'npm install'
         echo 'Run tests'
         sh 'npm test'
-        echo 'Tests passed on to build Docker container'
+        echo 'Tests passed - onto the next stage'
     }
- //sonarqube not seem to work  
+     
     stage('sonarqube scan') {
         def scannerHome = tool 'sonarqube';
         withSonarQubeEnv('sonarqube') { // If you have configured more than one global server connection, you can specify its name
@@ -26,7 +26,7 @@ node {
     }
 
     stage('Push image') {
-//  Finally, we'll push the image with two tags - the incremental build number from Jenkins, -latest tag
+//  push the image with two tags - the incremental build number from Jenkins, -latest tag
         docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
             app.push("v1.${env.BUILD_NUMBER}")
             app.push("latest")
